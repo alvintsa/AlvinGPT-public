@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat UI</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script> <!-- Socket.IO client -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<div class="header">
+    <h2>
+        Welcome to alvinGPT!
+    </h2>
+        <p>
+            A chatbot made by Alvin, Max, and Gurleen!
+        </p>
+        <p>
+            You can chit chat with me about anything or
+            if you want to search up some information in from our documents, then simply select any of the topics and start chatting about those topics. I can also help classify your queries if you ask! You will still have to check the boxes yourself though.
+    </p>
+</div>
+
+<body>
+    <div class="chat-container">
+        <div id="visualizations">
+            <div id="pieChart" ></div>
+            <div id="timeSeries" ></div>
+            <div id="precision_terms_graph"></div>
+        </div>
+        <div class="chat-window">
+            <div class="messages" id="messages">
+                <!-- messages will show up here -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Type your message..." />
+                <button id="sendButton">Send</button>
+            </div>
+        </div>
+        <div class="topics">
+            <h3>Topics</h3>
+            <form id="topicForm">
+                <label><input type="checkbox" name="topic" value="Health"> Health</label><br>
+                <label><input type="checkbox" name="topic" value="Environment"> Environment</label><br>
+                <label><input type="checkbox" name="topic" value="Technology"> Technology</label><br>
+                <label><input type="checkbox" name="topic" value="Economy"> Economy</label><br>
+                <label><input type="checkbox" name="topic" value="Entertainment"> Entertainment</label><br>
+                <label><input type="checkbox" name="topic" value="Sports"> Sports</label><br>
+                <label><input type="checkbox" name="topic" value="Politics"> Politics</label><br>
+                <label><input type="checkbox" name="topic" value="Education"> Education</label><br>
+                <label><input type="checkbox" name="topic" value="Travel"> Travel</label><br>
+                <label><input type="checkbox" name="topic" value="Food"> Food</label><br>
+                <label><input type="checkbox" name="topic" value="all" id="defaultOption"> All Topics</label>
+            </form>
+        </div>
+    </div>
+    <script src="messages.js"></script>
+</body>
+</html>

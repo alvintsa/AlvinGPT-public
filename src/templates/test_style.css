@@ -1,0 +1,229 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.header {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background-color:#4caf50;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #e8f5e9;
+}
+
+.plots-container{
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    max-width: 1000px;
+    margin-bottom: 20px;
+}
+
+.chat-window {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+}
+
+.messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+.message {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.message.bot {
+    justify-content: flex-start;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+}
+
+.message-content {
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color: #d9f7be;
+    color: #333;
+    max-width: 60%;
+}
+
+.message.user .message-content {
+    background-color: #91d5ff;
+}
+
+.input-area {
+    display: flex;
+    padding: 10px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.input-area button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.input-area button:hover {
+    background-color: #45a049;
+}
+
+
+.topics {
+    flex: 1;
+    padding: 15px;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+}
+
+.topics h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.topics label {
+    display: block;
+    margin: 10px 0;
+    color: #555;
+}
+
+
+/* Visualization height consistency */
+.visualizations #pieChart, 
+.visualizations #timeSeries {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.visualizations {
+    flex: 1;
+    display: flex;
+    /* flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-y: auto;
+    min-height: 500px;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.visualizations h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#pieChart, #timeSeries {
+    margin: auto;
+}
+
+.visualizations {
+    flex: 1;                    /* Allow the visualizations container to take available space */
+    display: flex;
+    flex-direction: column;     /* Stack child elements vertically */
+    justify-content: center;    /* Align items centrally */
+    align-items: center;        /* Center the graphs horizontally */
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 500px;
+    width: 100%;                /* Ensure it spans the entire width */
+    max-width: 1000px;          /* Optional: Maximum width */
+}
+
+.visualizations #pieChart, 
+.visualizations #timeSeries {
+    width: 100%;                /* Take up 100% width of the parent container */
+    height: 300px;              /* Fix the height to be consistent */
+    margin-bottom: 20px;        /* Space between graphs */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .chat-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .chat-window {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+}
