@@ -15,7 +15,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly import utils
 import pickle
+import sys
+import os
 
+# Make print statements flush immediately
+sys.stdout.reconfigure(line_buffering=True)
 # app = Flask(__name__)
 
 
