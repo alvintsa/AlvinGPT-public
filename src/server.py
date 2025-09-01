@@ -135,4 +135,5 @@ def process_message(data):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 9999))  # 9999 locally
+    print("Reached Flask startup — about to run app.run()")
     app.run(host="0.0.0.0", port=port, debug=False)
