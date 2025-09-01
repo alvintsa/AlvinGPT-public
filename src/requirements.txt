@@ -1,0 +1,8 @@
+flask
+flask_socketio
+tqdm
+python-dotenv
+openai
+nltk
+plotly
+wikipedia
