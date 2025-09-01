@@ -7,3 +7,4 @@ nltk
 plotly
 wikipedia
 numpy
+eventlet

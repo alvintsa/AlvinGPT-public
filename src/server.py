@@ -134,5 +134,5 @@ def process_message(data):
             emit("plot_data", {"type": "precision_terms_graph", "data": precision_graph}, broadcast=True)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 9999))  # 9999 for local fallback
-    socketio.run(app, host="0.0.0.0", port=port, debug=False)
+    port = int(os.environ.get("PORT", 9999))  # 9999 locally
+    app.run(host="0.0.0.0", port=port, debug=False)
