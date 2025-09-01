@@ -6,3 +6,4 @@ openai
 nltk
 plotly
 wikipedia
+numpy
