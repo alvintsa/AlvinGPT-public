@@ -69,7 +69,11 @@ def tokenize(document): # removes white spaces and tokenizes
 def remove_stop(tokenized_document):
     result = []
     
-    # nltk.download("stopwords")
+    try:
+        nltk.data.find('corpora/stopwords')
+    except LookupError:
+        nltk.download('stopwords')    
+        
     stop_words = set(stopwords.words("english"))
     
     for token in tokenized_document:
