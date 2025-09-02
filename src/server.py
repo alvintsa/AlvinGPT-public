@@ -1,4 +1,5 @@
 import threading
+import eventlet
 from flask import Flask, render_template, send_file, send_from_directory, jsonify
 from flask_socketio import SocketIO, emit
 import json
@@ -13,6 +14,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 import time
 import os
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -148,10 +150,14 @@ def process_message(data):
             emit("plot_data", {"type": "precision_terms_graph", "data": precision_graph}, broadcast=True)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 9999))
-    print("Starting Flask app on port", port)
 
-    # Start ProjectRunner in background
+
+    port = int(os.environ.get("PORT", 9999))
+    print("Reached Flask startup — about to run socketio.run()")
+
+    # Start ProjectRunner preprocessing in background
     threading.Thread(target=init_runner, daemon=True).start()
 
-    app.run(host="0.0.0.0", port=port, debug=False)
+    # Run Flask-SocketIO with eventlet
+    socketio.run(app, host="0.0.0.0", port=port, debug=False)
+
