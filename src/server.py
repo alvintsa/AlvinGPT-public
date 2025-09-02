@@ -1,3 +1,4 @@
+import threading
 from flask import Flask, render_template, send_file, send_from_directory, jsonify
 from flask_socketio import SocketIO, emit
 import json
@@ -29,7 +30,14 @@ query_num_terms = []
 query_time_taken = []
 precision_vals = []
 
-runner = ProjectRunner()
+runner = None
+def init_runner():
+    global runner
+    print("Starting ProjectRunner preprocessing...")
+    runner = ProjectRunner()
+    print("ProjectRunner ready!")
+    
+    return
 
 @app.route("/")
 def index():
@@ -45,7 +53,13 @@ def functions_js():
 
 @app.route("/execute_query", methods=['POST']) # for testing without full stack working
 def query_index():
+    global runner
+    
+    if not runner:
+        return jsonify({"error": "Server still loading, try again in a few seconds."}), 503
+    
     return execute_query(runner)
+
 
 @app.route("/profile_pic/prof_headshot_funny.jpg")
 def send_alvin():
@@ -134,6 +148,10 @@ def process_message(data):
             emit("plot_data", {"type": "precision_terms_graph", "data": precision_graph}, broadcast=True)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 9999))  # 9999 locally
-    print("Reached Flask startup — about to run app.run()")
+    port = int(os.environ.get("PORT", 9999))
+    print("Starting Flask app on port", port)
+
+    # Start ProjectRunner in background
+    threading.Thread(target=init_runner, daemon=True).start()
+
     app.run(host="0.0.0.0", port=port, debug=False)
