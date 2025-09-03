@@ -17,6 +17,8 @@ from plotly import utils
 import pickle
 import sys
 import os
+import pickle
+
 
 # Make print statements flush immediately
 sys.stdout.reconfigure(line_buffering=True)
@@ -51,7 +53,7 @@ def get_precision_scatter(query_num_terms, precision_tracker):
             )
     ))
 
-    return json.dumps(fig, cls=utils.PlotlyJSONEncoder)
+    return json.loads(fig, cls=utils.PlotlyJSONEncoder)
 
 def get_plotly_pie(topic_counts): # num docs from each topic
     topics, vals = get_keys_data(topic_counts)
@@ -60,7 +62,7 @@ def get_plotly_pie(topic_counts): # num docs from each topic
                              insidetextorientation='radial'
                             )])
     fig.update_layout(title_text='Distribution of documents found', title_x=0.5,  font=dict(size=12),width=300, height=300)
-    return json.dumps(fig, cls=utils.PlotlyJSONEncoder)
+    return json.loads(fig, cls=utils.PlotlyJSONEncoder)
 
 def get_plotly_timeseries(query_num_terms, query_time_taken): # time taken per query vs num tokens
     fig = px.scatter(x=query_num_terms, y=query_time_taken)
@@ -76,42 +78,72 @@ def get_plotly_timeseries(query_num_terms, query_time_taken): # time taken per q
         )
     ))
 
-    return json.dumps(fig, cls=utils.PlotlyJSONEncoder)
+    return json.loads(fig, cls=utils.PlotlyJSONEncoder)
 
 class ProjectRunner:
     def __init__(self):
-        print("starting loading of docs and preprocessing of docs")
-        health_dict = preprocess_all(load_docs(data_path/"Health.json"))
-        print("loaded and preprocessed health")
-        # print(health_dict)
-        environment_dict = preprocess_all(load_docs(data_path/"Environment.json"))
-        print("loaded and preprocessed environment")
+        # print("starting loading of docs and preprocessing of docs")
+        # health_dict = preprocess_all(load_docs(data_path/"Health.json"))
+        # print("loaded and preprocessed health")
+        # # print(health_dict)
+        # environment_dict = preprocess_all(load_docs(data_path/"Environment.json"))
+        # print("loaded and preprocessed environment")
 
-        technology_dict = preprocess_all(load_docs(data_path/"Technology.json"))
+        # technology_dict = preprocess_all(load_docs(data_path/"Technology.json"))
 
-        print("loaded and preprocessed technology")
-        economy_dict = preprocess_all(load_docs(data_path/"Economy.json"))
+        # print("loaded and preprocessed technology")
+        # economy_dict = preprocess_all(load_docs(data_path/"Economy.json"))
 
-        print("loaded and preprocessed ecoomy")
-        entertainment_dict = preprocess_all(load_docs(data_path/"Entertainment.json"))
+        # print("loaded and preprocessed ecoomy")
+        # entertainment_dict = preprocess_all(load_docs(data_path/"Entertainment.json"))
 
-        print("loaded and preprocessed entertainment")
-        sports_dict = preprocess_all(load_docs(data_path/"Sports.json"))
+        # print("loaded and preprocessed entertainment")
+        # sports_dict = preprocess_all(load_docs(data_path/"Sports.json"))
 
-        print("loaded and preprocessed sports")
-        politics_dict = preprocess_all(load_docs(data_path/"Politics.json"))
+        # print("loaded and preprocessed sports")
+        # politics_dict = preprocess_all(load_docs(data_path/"Politics.json"))
 
-        print("loaded and preprocessed politics")
-        education_dict = preprocess_all(load_docs(data_path/"Education.json"))
+        # print("loaded and preprocessed politics")
+        # education_dict = preprocess_all(load_docs(data_path/"Education.json"))
 
-        print("loaded and preprocessed education")
-        travel_dict = preprocess_all(load_docs(data_path/"Travel.json"))
+        # print("loaded and preprocessed education")
+        # travel_dict = preprocess_all(load_docs(data_path/"Travel.json"))
 
-        print("loaded and preprocessed travel")
-        food_dict = preprocess_all(load_docs(data_path/"Food.json"))
+        # print("loaded and preprocessed travel")
+        # food_dict = preprocess_all(load_docs(data_path/"Food.json"))
 
-        print("loaded and preprocessed food")
+        # print("loaded and preprocessed food")
 
+        print("starting to load files")
+
+        with open('dicts/health_dict.pkl', 'rb') as f:
+            health_dict = pickle.load(f)
+            
+        with open('dicts/environment_dict.pkl', 'rb') as f:
+            environment_dict = pickle.load(f)
+        with open('dicts/technology_dict.pkl', 'rb') as f:
+            technology_dict = pickle.load(f)
+        with open('dicts/economy_dict.pkl', 'rb') as f:
+            economy_dict = pickle.load(f)
+        with open('dicts/entertainment_dict.pkl', 'rb') as f:
+            entertainment_dict = pickle.load(f)
+        with open('dicts/sports_dict.pkl', 'rb') as f:
+            sports_dict = pickle.load(f)
+        with open('dicts/politics_dict.pkl', 'rb') as f:
+            politics_dict = pickle.load(f)
+        with open('dicts/education_dict.pkl', 'rb') as f:
+            education_dict = pickle.load(f)
+        with open('dicts/travel_dict.pkl', 'rb') as f:
+            travel_dict = pickle.load(f)
+        with open('dicts/food_dict.pkl', 'rb') as f:
+            food_dict = pickle.load(f)
+    
+        print("finished loading!")
+
+        
+        
+        
+  
         print("starting to create indexes")
         self.health_index = InvertedIndex(health_dict, len(health_dict))
         print("finished constructing health index")
@@ -142,7 +174,8 @@ class ProjectRunner:
         self.food_index = InvertedIndex(food_dict, len(food_dict))
         print("finished constructing food index")
         
-        
+
+
     def preprocess_query(self, query):
         prepocessed_query = preprocess_document(query)
         return prepocessed_query
@@ -579,9 +612,9 @@ def execute_query(json_data, topic_counts, runner):
     for topic in topics:
         output_dict[topic] = runner.run_queries(get_topic_index(topic, runner), [queries])
 
-        """ Dumping the results to a JSON file. """
+        """ loading the results to a JSON file. """
     with open("output_result.json", 'w') as fp:
-        json.dump(output_dict, fp)
+        json.load(output_dict, fp)
         
     for topic in output_dict:
         topic_dict = get_topic_dict(topic)
@@ -605,9 +638,9 @@ def execute_query(json_data, topic_counts, runner):
 
     
     
-    """ Dumping the results to a JSON file. """
+    """ loading the results to a JSON file. """
     with open("sample_result.json", 'w') as fp:
-        json.dump(result_dict, fp)
+        json.load(result_dict, fp)
 
     response = result_dict
     
