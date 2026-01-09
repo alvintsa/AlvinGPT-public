@@ -1,6 +1,6 @@
 import threading
 import eventlet
-from flask import Flask, render_template, send_file, send_from_directory, jsonify
+from flask import Flask, render_template, send_file, send_from_directory, jsonify, make_request
 from flask_socketio import SocketIO, emit
 import json
 from backend.extract import load_docs
@@ -47,7 +47,7 @@ def index():
 
 @app.route("/cron")
 def cron():
-    return {"", 204}
+    return make_response("", 204)
 
 @app.route("/style.css")
 def home_css():
