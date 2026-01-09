@@ -1,6 +1,6 @@
 import threading
 import eventlet
-from flask import Flask, render_template, send_file, send_from_directory, jsonify, make_request
+from flask import Flask, render_template, send_file, send_from_directory, jsonify, make_response
 from flask_socketio import SocketIO, emit
 import json
 from backend.extract import load_docs
