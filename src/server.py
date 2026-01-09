@@ -45,6 +45,10 @@ def init_runner():
 def index():
     return render_template("index.html")
 
+@app.route("/cron")
+def cron():
+    return {"", 204}
+
 @app.route("/style.css")
 def home_css():
     return send_file("templates/style.css", mimetype="text/css")
